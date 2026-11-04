@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>ระบบบริการปฐมภูมิและเครือข่ายแพทย์เวชศาสตร์ครอบครัว (Family Medicine - Fam Med) ในจังหวัดนราธิวาส</title>
+  <style>
+    /* Motion: CSS transition is sufficient for the one-time loader dismissal and works without JavaScript. */
+    :root {
+      color-scheme: light;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    body {
+      height: 100dvh;
+    }
+
+    .app-frame {
+      display: block;
+      width: 100%;
+      height: 100dvh;
+      border: 0;
+    }
+
+    .loading-screen {
+      position: fixed;
+      z-index: 1;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      box-sizing: border-box;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      background: #ffffff;
+      color: #1f3a5f;
+      opacity: 1;
+      transition: opacity 240ms ease-out, visibility 0s linear 240ms;
+    }
+
+    .loading-screen[hidden] {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-message {
+      margin: 0;
+      font: 500 1rem/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .loading-screen {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen" class="loading-screen" role="status" aria-live="polite">
+    <p class="loading-message">กำลังเปิดระบบบริการปฐมภูมิ…</p>
+  </div>
+
+  <iframe
+    id="app-frame"
+    class="app-frame"
+    src="https://script.google.com/macros/s/AKfycbx6xzDkVjeOwsokjEqsPjpl4O2kqKCI5jR3wIepSRJnOjmoY-CHiEPVIb62c8igJ7Oz/exec"
+    title="ระบบบริการปฐมภูมิและเครือข่ายแพทย์เวชศาสตร์ครอบครัว (Family Medicine - Fam Med) ในจังหวัดนราธิวาส"
+    allow="fullscreen"
+    allowfullscreen
+  ></iframe>
+
+  <script>
+    const appFrame = document.getElementById('app-frame');
+    const loadingScreen = document.getElementById('loading-screen');
+
+    appFrame.addEventListener('load', () => {
+      loadingScreen.hidden = true;
+    }, { once: true });
+  </script>
+</body>
+</html>
