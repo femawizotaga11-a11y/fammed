@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <title>ระบบบริการปฐมภูมิและเครือข่ายแพทย์เวชศาสตร์ครอบครัว (Family Medicine - Fam Med) ในจังหวัดนราธิวาส</title>
   <style>
-    /* Motion: CSS keyframes create a lightweight 3D runner and transition dismisses the loader without external libraries. */
+    /* Motion: CSS keyframes scroll the system name continuously without external libraries. */
     :root {
       color-scheme: light;
     }
@@ -52,243 +52,61 @@
     }
 
     .loading-content {
-      display: grid;
-      justify-items: center;
-      gap: 0.75rem;
+      width: min(100%, 50rem);
+      overflow: hidden;
     }
 
-    .ai-runner {
-      position: relative;
-      width: 12rem;
-      height: 11.5rem;
-      perspective: 42rem;
+    .marquee {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
     }
 
-    .runner-shadow {
-      position: absolute;
-      bottom: 0.5rem;
-      left: 50%;
-      width: 7.5rem;
-      height: 1rem;
-      border-radius: 50%;
-      background: rgb(30 76 120 / 22%);
-      filter: blur(0.4rem);
-      transform: translateX(-50%) rotateX(70deg);
-      animation: runner-shadow 560ms ease-in-out infinite;
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: system-marquee 22s linear infinite;
+      will-change: transform;
     }
 
-    .robot {
-      position: absolute;
-      bottom: 1.15rem;
-      left: 50%;
-      width: 6.75rem;
-      height: 9.25rem;
-      transform: translateX(-50%);
-      transform-style: preserve-3d;
-      animation: runner-bob 560ms ease-in-out infinite;
-    }
-
-    .robot-head,
-    .robot-body,
-    .robot-limb {
-      position: absolute;
-      transform-style: preserve-3d;
-    }
-
-    .robot-head {
-      top: 0;
-      left: 1.45rem;
-      width: 3.85rem;
-      height: 3.25rem;
-      border: 0.18rem solid #183d66;
-      border-radius: 1.05rem 1.05rem 1.3rem 1.3rem;
-      background: linear-gradient(135deg, #f7fdff 0%, #b6dff7 54%, #6da6d2 100%);
-      box-shadow: inset -0.45rem -0.4rem 0.3rem rgb(17 74 119 / 28%), 0.3rem 0.45rem 0 #245d91;
-      transform: translateZ(1rem) rotateY(-12deg) rotateX(5deg);
-    }
-
-    .robot-visor {
-      position: absolute;
-      top: 0.8rem;
-      left: 0.48rem;
-      width: 2.55rem;
-      height: 0.94rem;
-      border: 0.12rem solid #1b4c78;
-      border-radius: 0.55rem;
-      background: linear-gradient(100deg, #ddfcff, #23bde2 45%, #1268aa);
-      box-shadow: inset 0.16rem 0.16rem 0 rgb(255 255 255 / 60%), 0 0 0.75rem rgb(44 201 234 / 55%);
-      transform: translateZ(0.25rem);
-    }
-
-    .robot-visor::after {
-      position: absolute;
-      top: 0.28rem;
-      right: 0.42rem;
-      width: 0.26rem;
-      height: 0.26rem;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: -1.12rem 0 0 #ffffff;
-      content: "";
-    }
-
-    .robot-body {
-      top: 3.02rem;
-      left: 1.15rem;
-      width: 4.45rem;
-      height: 3.05rem;
-      border: 0.18rem solid #183d66;
-      border-radius: 1.2rem 1.2rem 0.85rem 0.85rem;
-      background: linear-gradient(135deg, #eefaff 0%, #9fd3f3 55%, #5a96c8 100%);
-      box-shadow: inset -0.42rem -0.35rem 0.3rem rgb(17 74 119 / 26%), 0.3rem 0.4rem 0 #245d91;
-      transform: translateZ(0.7rem) rotateY(-8deg);
-    }
-
-    .robot-core {
-      position: absolute;
-      top: 0.72rem;
-      left: 1.55rem;
-      width: 1rem;
-      height: 1rem;
-      border: 0.14rem solid #1e6593;
-      border-radius: 50%;
-      background: #67f0ff;
-      box-shadow: 0 0 0.65rem #27c5e4;
-      transform: translateZ(0.34rem);
-    }
-
-    .robot-limb {
-      width: 1.1rem;
-      border: 0.17rem solid #183d66;
-      border-radius: 0.7rem;
-      background: linear-gradient(90deg, #e9faff, #78b7e4 70%, #3e7bac);
-      box-shadow: inset -0.18rem -0.18rem 0.18rem rgb(17 74 119 / 22%);
-    }
-
-    .robot-arm {
-      top: 3.35rem;
-      height: 3.1rem;
-      transform-origin: 50% 0.35rem;
-    }
-
-    .robot-arm.left {
-      left: 0.5rem;
-      animation: runner-arm-left 560ms ease-in-out infinite;
-    }
-
-    .robot-arm.right {
-      right: 0.5rem;
-      animation: runner-arm-right 560ms ease-in-out infinite;
-    }
-
-    .robot-leg {
-      top: 5.65rem;
-      height: 3.25rem;
-      transform-origin: 50% 0.35rem;
-    }
-
-    .robot-leg.left {
-      left: 1.55rem;
-      animation: runner-leg-left 560ms ease-in-out infinite;
-    }
-
-    .robot-leg.right {
-      right: 1.55rem;
-      animation: runner-leg-right 560ms ease-in-out infinite;
-    }
-
-    .robot-limb::after {
-      position: absolute;
-      bottom: -0.35rem;
-      left: -0.34rem;
-      width: 1.42rem;
-      height: 0.7rem;
-      border: 0.16rem solid #183d66;
-      border-radius: 0.6rem 0.75rem 0.6rem 0.5rem;
-      background: #73b9e8;
-      content: "";
-    }
-
-    .loading-message {
+    .marquee-text {
+      flex: 0 0 auto;
       margin: 0;
-      font: 600 1rem/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
-      text-align: center;
+      padding-right: 3rem;
+      color: #1f3a5f;
+      font: 600 clamp(1rem, 2.8vw, 1.55rem)/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+      white-space: nowrap;
     }
 
-    @keyframes runner-bob {
-      0%,
-      100% {
-        transform: translateX(-50%) translateY(0) rotateZ(-2deg);
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(-0.65rem) rotateZ(2deg);
-      }
-    }
-
-    @keyframes runner-shadow {
-      0%,
-      100% {
-        opacity: 0.46;
-        transform: translateX(-50%) rotateX(70deg) scaleX(1);
-      }
-
-      50% {
-        opacity: 0.22;
-        transform: translateX(-50%) rotateX(70deg) scaleX(0.72);
-      }
-    }
-
-    @keyframes runner-arm-left {
-      0%,
-      100% {
-        transform: translateZ(0.35rem) rotateX(-46deg) rotateZ(18deg);
-      }
-
-      50% {
-        transform: translateZ(0.35rem) rotateX(50deg) rotateZ(-16deg);
-      }
-    }
-
-    @keyframes runner-arm-right {
-      0%,
-      100% {
-        transform: translateZ(0.35rem) rotateX(50deg) rotateZ(-16deg);
-      }
-
-      50% {
-        transform: translateZ(0.35rem) rotateX(-46deg) rotateZ(18deg);
-      }
-    }
-
-    @keyframes runner-leg-left {
-      0%,
-      100% {
-        transform: translateZ(0.2rem) rotateX(42deg) rotateZ(-6deg);
-      }
-
-      50% {
-        transform: translateZ(0.2rem) rotateX(-42deg) rotateZ(6deg);
-      }
-    }
-
-    @keyframes runner-leg-right {
-      0%,
-      100% {
-        transform: translateZ(0.2rem) rotateX(-42deg) rotateZ(6deg);
-      }
-
-      50% {
-        transform: translateZ(0.2rem) rotateX(42deg) rotateZ(-6deg);
+    @keyframes system-marquee {
+      to {
+        transform: translateX(-50%);
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .loading-screen,
-      .ai-runner,
-      .ai-runner * {
-        animation: none;
+      .loading-screen {
         transition: none;
+      }
+
+      .marquee {
+        overflow: visible;
+        mask-image: none;
+      }
+
+      .marquee-track {
+        width: 100%;
+        animation: none;
+      }
+
+      .marquee-text {
+        max-width: calc(100vw - 2rem);
+        padding: 0;
+        text-align: center;
+        white-space: normal;
+      }
+
+      .marquee-text[aria-hidden="true"] {
+        display: none;
       }
     }
   </style>
@@ -296,22 +114,12 @@
 <body>
   <div id="loading-screen" class="loading-screen" role="status" aria-live="polite">
     <div class="loading-content">
-      <div class="ai-runner" aria-hidden="true">
-        <div class="runner-shadow"></div>
-        <div class="robot">
-          <div class="robot-head">
-            <div class="robot-visor"></div>
-          </div>
-          <div class="robot-body">
-            <div class="robot-core"></div>
-          </div>
-          <div class="robot-limb robot-arm left"></div>
-          <div class="robot-limb robot-arm right"></div>
-          <div class="robot-limb robot-leg left"></div>
-          <div class="robot-limb robot-leg right"></div>
+      <div class="marquee">
+        <div class="marquee-track">
+          <p class="marquee-text">ระบบบริการปฐมภูมิและเครือข่ายแพทย์เวชศาสตร์ครอบครัว (Family Medicine - Fam Med) ในจังหวัดนราธิวาส</p>
+          <p class="marquee-text" aria-hidden="true">ระบบบริการปฐมภูมิและเครือข่ายแพทย์เวชศาสตร์ครอบครัว (Family Medicine - Fam Med) ในจังหวัดนราธิวาส</p>
         </div>
       </div>
-      <p class="loading-message">AI กำลังเตรียมระบบบริการปฐมภูมิ…</p>
     </div>
   </div>
 
